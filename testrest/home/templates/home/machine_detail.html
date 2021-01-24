@@ -1,0 +1,182 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+
+  <div class="card mt-5">
+    <div class="card-header bg-white"> 
+     Maschinen Infos
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-4">
+          <img src="{{ machine.image.url }}" class="card-img immo_pic" alt="...">
+        </div>
+        <div class="col-4">
+        Maschine: {{machine.name}} 
+        <p>{{machine.desc}} </p>
+      
+        </div>
+        <div class="col-4">
+        <button type="button" onclick="modell_func()" class="btn btn-primary my-2">Modell trainieren</button> <br>
+        <button type="button" onclick="tool_func()" class="btn btn-primary my-2">Werkzeugwechseln</button><br>
+        <button type="button" class="btn btn-primary text-right my-2" data-toggle="modal" data-target="#exampleModalCenter">
+          Order hinzufügen
+        </button><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Neue Order</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="myform" method='POST' action='/maschine/{{machine.domain}}/'> {% csrf_token %}
+              Product: {{ form.product|as_crispy_field}}
+            <button class="btn btn-primary btn-dark mb-3 mt-2" id="myform" type="submit" >Hinzufügen</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mt-5">
+    <div class="card-header bg-white"> 
+      Orders
+    </div>
+
+    <div class="card-body">
+ <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Produkt</th>
+        <th scope="col">Vorhersage</th>
+
+      </tr>
+    </thead>
+    <tbody id="someid">
+
+    </tbody>
+  </table>
+    </div>
+
+  </div>
+  
+ 
+</div>
+
+
+<script>
+       
+  function aFunction(){
+  const notifis = document.getElementById("noti")
+
+  var id = {{machine.id}}
+  const xhr = new XMLHttpRequest()
+  const method = 'GET' // "POST"
+  const url = "/api/machine/"+id +"/order_predict/"
+  const responseType = "json"
+
+  xhr.responseType = responseType
+  xhr.open(method, url)
+  xhr.onload = function() {
+      const serverResponse = xhr.response
+
+      const order_dic = serverResponse
+      var i;
+      var rows = "";
+      for (i = 0; i < order_dic["orderid"].length; i++) {
+        rows = rows + (` 
+        <tr>
+        <th scope="row">${order_dic['orderid'][i]}</th>
+        <td>${order_dic['ordersproduct'][i]}</td>
+        <td>${order_dic['orderprediction'][i]}</td>
+        </tr>
+        `)
+    
+      }
+      
+      document.getElementById("someid").innerHTML = rows;
+
+
+      console.log(order_dic)
+      console.log(rows)
+  }
+  xhr.send()
+
+
+}
+
+aFunction();
+
+</script>
+
+
+<script>
+function modell_func(){  
+  var id = {{machine.id}}
+    const xhr = new XMLHttpRequest()
+    const method = 'GET' // "POST"
+    const url = "/api/machine/"+id +"/build_model/"
+    const responseType = "json"
+
+    xhr.responseType = responseType
+    xhr.open(method, url)
+    xhr.onload = function() {
+        const serverResponse = xhr.response
+
+        const answer = serverResponse
+        console.log(answer)
+        if (answer["message"]=="success"){
+          aFunction();
+        }
+    }
+    xhr.send()
+
+
+}
+
+</script>
+
+<script>
+  function tool_func(){  
+    var id = {{machine.id}}
+      const xhr = new XMLHttpRequest()
+      const method = 'GET' // "POST"
+      const url = "/api/machine/"+id +"/tool_change/"
+      const responseType = "json"
+  
+      xhr.responseType = responseType
+      xhr.open(method, url)
+      xhr.onload = function() {
+          const serverResponse = xhr.response
+  
+          const answer = serverResponse
+          console.log(answer)
+          if (answer["message"]=="success"){
+            aFunction();
+          }
+      }
+      xhr.send()
+  
+  
+  }
+  
+  </script>
+
+
+
+
+
+    
+</div>
+{% endblock %}

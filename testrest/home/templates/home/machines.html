@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load static %}
+<div class="container">
+
+  <div class="mt-5">
+
+    <div class="row mb-3">
+      <div class="col">
+
+      </div> 
+      <div class="col text-right">
+      <a href="/neue_maschine/">
+      <button type="button" class="btn btn-primary text-right" data-toggle="modal" data-target="#exampleModalCenter">
+       Maschine hinzufügen
+      </button></a>  
+      </div> 
+
+
+    </div>
+
+
+
+
+
+    {% for machine in machines %}
+    <a href="/maschine/{{machine.domain}}" class="custom-card">
+        <div class=" card my-4 " >
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{ machine.image.url }}" class="card-img immo_pic" alt="...">
+            </div>
+            <div class="col-md-8 ">
+              <div class="card-body ">
+                <h5 class="card-title"> {{machine.name}}</h5>
+                <p class="text-height-1"> {{machine.desc}}</p>
+  
+                
+                <div class="row mt-2">
+                  <div class="col ">
+                    <h5 class="my-0 text-height-1">{{machine.manu}} </h5>
+                    <span class="my-0 text-height-0"><small>Hersteller</small></span>
+                  </div>
+                <div class="col">
+                  <h5 class="my-0 text-height-1">{{machine.modell}} </h5>
+                  <span class="my-0 text-height-0"><small>Modell</small></span>
+                </div>
+  
+                <div class="col">
+                  <h5 class="my-0 text-height-1">{{machine.year}}</h5>
+                  <span class="my-0 text-height-0"><small>Modelljahr</small></span>
+                </div>
+  
+    
+  
+                </div>
+                  
+                
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+
+</div>
+
+    
+</div>
+{% endblock %}
