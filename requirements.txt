@@ -4,4 +4,5 @@ djangorestframework
 scikit-learn
 pandas
 numpy
+Pillow
 gunicorn
