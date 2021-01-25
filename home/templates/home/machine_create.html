@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+
+  <div class="card mt-5">
+    <div class="card-header bg-white"> 
+      Maschine hinzufügen
+    </div>
+    <div class="card-body">
+    <form id="myform" method='POST' enctype="multipart/form-data" action='/neue_maschine/'> {% csrf_token %}
+        {{ form.name|as_crispy_field}}
+        {{ form.desc|as_crispy_field}}
+        {{ form.image|as_crispy_field}}
+        {{ form.manu|as_crispy_field}}
+        {{ form.modell|as_crispy_field}}
+        {{ form.year|as_crispy_field}}
+      <button class="btn btn-primary btn-dark mt-2" id="myform" type="submit" >Hinzufügen</button>
+    </form>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+    
+</div>
+{% endblock %}

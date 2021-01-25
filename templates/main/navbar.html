@@ -1,0 +1,26 @@
+{% load static %}
+{% with url_name=request.resolver_match.url_name %}
+<nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-white navcostum shadow-sm ">
+    <a class="navbar-brand" href="#">
+      <img src="{% static "assets/logonils.png" %}"  height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            
+          <div class="navbar-nav navbar-custom" >
+            <a class="nav-item   nav-link {% if url_name == 'home' %}active{% endif %}" href="/">Home <span class="sr-only">(current)</span></a>
+
+       
+          </div>
+
+        <ul class="navbar-nav ml-auto"> 
+            <a class="nav-item nav-link " href="#"><i class="fas fa-plus navicon"></i></a>
+            <a class="nav-item nav-link " href="#"><i class="fas fa-bell navicon"></i></a>
+
+        </ul>
+
+        </div>
+      </nav>
+      {% endwith %}
