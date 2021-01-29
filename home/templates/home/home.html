@@ -13,9 +13,27 @@ Dein Api Key:<b>{{token}}</b>
 </div>
 
 
+
     <pre class="prettyprint mt-2">
     <code class="language-python">
-     print("Hello World")
+        import requests
+
+        url = "https://meeen-production-rest-ml-django.zeet.app/api/production/"
+        
+        payload={'tooltime': '8888',
+        'tolarance': '1968',
+        'machine': '1',
+        'machinetime': '12',
+        'product': '1',
+        }         
+        
+        headers = {
+          'Authorization': 'Token {{token}}',
+        }
+        
+        response = requests.request("POST", url, headers=headers, data=payload )
+        
+        print(response.text)
     </code></pre>
 
 
