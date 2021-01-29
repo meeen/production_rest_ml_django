@@ -14,7 +14,7 @@ class machine(models.Model):
     name = models.CharField(max_length=64)
     domain = models.SlugField(unique=True)
     desc = models.TextField(null=True, blank=True)
-    image = models.ImageField(default='machine/default.png', upload_to='machine')
+    image = models.ImageField(default='machine/default.jpg', upload_to='machine')
     model = models.BinaryField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -47,6 +47,7 @@ class order(models.Model):
     product = models.ForeignKey(product_typ, default=None, on_delete=models.CASCADE)
     machine = models.ForeignKey(machine, default=None,blank=True, null=True, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    finnish = models.BooleanField(default=False)
 
 class tool_change(models.Model):
     machine = models.ForeignKey(machine, default=None,blank=True, null=True, on_delete=models.CASCADE)

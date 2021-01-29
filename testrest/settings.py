@@ -25,7 +25,7 @@ SECRET_KEY = ')xnx*43qh*^ubuca#3umd8f5c*1kn7p9q0)t!di3&9t&rjo-ds'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'data',
     'crispy_forms',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -79,13 +80,41 @@ WSGI_APPLICATION = 'testrest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
+
+#Sqlite Datenbank funktioniert dafür Kommentierunung ändern
+#user:meno
+#pw:meno
+'''DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
+}'''
 
+#lokaler Postgres Server
+'''DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mlproducts',
+        'USER': 'postgres',
+        'PASSWORD': 'menodb1',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+'''
+
+#Heruku
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd647m7ctgj21pp',
+        'USER': 'abhesptnwegoxv',
+        'PASSWORD': 'b9f9150178696a1c9af3b69bbdc716a892de172ff7a517ffb86d677119b95c7a',
+        'HOST': 'ec2-54-247-71-245.eu-west-1.compute.amazonaws.com',
+        'PORT': '5432',
+    }
+}
 
 
 # Password validation
@@ -132,3 +161,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_REDIRECT_URL ='/'

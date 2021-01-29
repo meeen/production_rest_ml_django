@@ -17,18 +17,19 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from home.views import maschines_main_view,machine_detail_view,machine_create,home_view
 
-from home.views import maschines_main_view
-from home.views import machine_create
-from home.views import machine_detail_view
 
 
 urlpatterns = [
-    path('', maschines_main_view),
+    path('',home_view),
+    path('maschinen/', maschines_main_view),
     path('maschine/<slug>/', machine_detail_view),
     path('neue_maschine/', machine_create),
     path('api/', include('data.urls', namespace='production_api')),
     path('admin/', admin.site.urls),
+    path('login/', auth_views.LoginView.as_view(template_name='home/login.html'), name='login'),
 ]
 
 if settings.DEBUG:

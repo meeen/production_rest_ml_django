@@ -81,6 +81,7 @@
   const notifis = document.getElementById("noti")
 
   var id = {{machine.id}}
+  var token = "{{token}}"
   const xhr = new XMLHttpRequest()
   const method = 'GET' // "POST"
   const url = "/api/machine/"+id +"/order_predict/"
@@ -88,6 +89,7 @@
 
   xhr.responseType = responseType
   xhr.open(method, url)
+  xhr.setRequestHeader("Authorization", "Token "+token);
   xhr.onload = function() {
       const serverResponse = xhr.response
 
@@ -124,6 +126,7 @@ aFunction();
 <script>
 function modell_func(){  
   var id = {{machine.id}}
+  var token = "{{token}}"
     const xhr = new XMLHttpRequest()
     const method = 'GET' // "POST"
     const url = "/api/machine/"+id +"/build_model/"
@@ -131,6 +134,7 @@ function modell_func(){
 
     xhr.responseType = responseType
     xhr.open(method, url)
+    xhr.setRequestHeader("Authorization", "Token "+token);
     xhr.onload = function() {
         const serverResponse = xhr.response
 
@@ -150,13 +154,16 @@ function modell_func(){
 <script>
   function tool_func(){  
     var id = {{machine.id}}
+    var token = "{{token}}"
       const xhr = new XMLHttpRequest()
       const method = 'GET' // "POST"
       const url = "/api/machine/"+id +"/tool_change/"
+      
       const responseType = "json"
   
       xhr.responseType = responseType
       xhr.open(method, url)
+      xhr.setRequestHeader("Authorization", "Token "+token);
       xhr.onload = function() {
           const serverResponse = xhr.response
   

@@ -9,7 +9,7 @@ class production_serializer(serializers.ModelSerializer):
 class machine_serializer(serializers.ModelSerializer):
     class Meta:
         model = machine
-        fields = ('name','desc','mtype')
+        fields = ('id','name','desc','manu')
 
 
        
